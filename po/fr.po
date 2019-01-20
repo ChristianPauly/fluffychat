@@ -127,6 +127,9 @@ msgid ""
 "support end to end encryption. You will not be able to send or read messages "
 "in this chat!"
 msgstr ""
+"%1 a initialisé le chiffrement de bout en bout. Sachez que FluffyChat ne prend pas encore en "
+"charge le chiffrement de bout en bout. Vous ne pourrez pas envoyer ou lire des messages "
+"dans cette discussion !"
 
 #: ../qml/controller/DisplayEventController.qml:78
 #, fuzzy
@@ -293,15 +296,15 @@ msgstr "Informations à propos de FluffyChat %1 sur %2"
 
 #: ../qml/pages/InfoPage.qml:32 ../qml/pages/WalkthroughPage.qml:233
 msgid "Become a patron"
-msgstr ""
+msgstr "Devenez un patron"
 
 #: ../qml/pages/InfoPage.qml:39
 msgid "Support on Liberapay"
-msgstr ""
+msgstr "Supportez-nous sur Liberapay"
 
 #: ../qml/pages/InfoPage.qml:46
 msgid "Join the community"
-msgstr ""
+msgstr "Rejoignez la communauté"
 
 #: ../qml/pages/InfoPage.qml:52 ../qml/pages/LoginPage.qml:117
 #: ../qml/pages/PrivacyPolicyPage.qml:10
@@ -376,6 +379,7 @@ msgstr "L'enregistrement à %1 a échoué..."
 msgid ""
 "To reset your password, you will need to provide an e-mail address later"
 msgstr ""
+"Pour réinitialiser votre mot de passe, vous aurez besoin de fournir une adresse électronique plus tard"
 
 #: ../qml/pages/PasswordCreationPage.qml:104
 #, javascript-format
@@ -396,6 +400,8 @@ msgid ""
 "Chat with your friends and join the community. You can use your phone number "
 "or an unique username to find friends."
 msgstr ""
+"Discutez avec vos amis et rejoignez la communauté. Vous pouvez utiliser votre numéro de téléphone "
+"ou un nom d'utilisateur unique pour retrouver vos amis."
 
 #: ../qml/pages/WalkthroughPage.qml:102
 #, fuzzy
@@ -408,24 +414,29 @@ msgid ""
 "uMatriks. You can also join IRC channels, participate in XMPP chats and "
 "bridge Telegram groups."
 msgstr ""
+"FluffyChat est compatible avec les autres messageries telles que Riot, Fractal ou "
+"uMatriks. Vous pouvez également rejoindre des canaux IRC, participer à des discussions via XMPP et "
+"contacter des groupes Telegram."
 
 #: ../qml/pages/WalkthroughPage.qml:153
 msgid "What's new in version %1?"
-msgstr ""
+msgstr "Qu'y a-t-il de nouveau dans la version %1 ?"
 
 #: ../qml/pages/WalkthroughPage.qml:167
 msgid "Some bugs have been fixed and registration is now working again."
-msgstr ""
+msgstr "Quelques problèmes ont été résolus et l'inscription fonctionne de nouveau."
 
 #: ../qml/pages/WalkthroughPage.qml:205
 msgid "Community funded"
-msgstr ""
+msgstr "Financé par la communauté"
 
 #: ../qml/pages/WalkthroughPage.qml:218
 msgid ""
 "FluffyChat is open, nonprofit and cute. The development and servers are all "
 "funded by the community."
 msgstr ""
+"FluffyChat est ouvert, non lucratif et gentil. Le développement et les serveurs sont tous "
+"financés par la communauté."
 
 #: ../qml/pages/LoginPage.qml:39
 msgid "Username '%1' not found on %2"
@@ -458,7 +469,7 @@ msgstr "Activer le mode sombre"
 
 #: ../qml/pages/LoginPage.qml:132 ../qml/pages/SettingsPage.qml:48
 msgid "FAQ"
-msgstr ""
+msgstr "Foire Aux Questions"
 
 #: ../qml/pages/LoginPage.qml:143
 msgid "Choose your homeserver"
@@ -514,23 +525,23 @@ msgstr "Permissions de la discussion"
 
 #: ../qml/pages/ChatPrivacySettingsPage.qml:172
 msgid "Users can be invited"
-msgstr ""
+msgstr "Les utilisateurs et utilisatrices peuvent être invité(e)s"
 
 #: ../qml/pages/ChatPrivacySettingsPage.qml:184
 msgid "Chat is public accessible"
-msgstr ""
+msgstr "La discussion est accessible au public"
 
 #: ../qml/pages/ChatPrivacySettingsPage.qml:196
 msgid "Guest users are allowed"
-msgstr ""
+msgstr "Les utilisateurs et utilisatrices invité(e)s sont autorisé(e)s"
 
 #: ../qml/pages/ChatPrivacySettingsPage.qml:215
 msgid "History visibility"
-msgstr ""
+msgstr "Visibilité de l'historique"
 
 #: ../qml/pages/ChatPrivacySettingsPage.qml:227
 msgid "History is visible from invitation"
-msgstr ""
+msgstr "L'historique est visible par invitation"
 
 #: ../qml/pages/ChatPrivacySettingsPage.qml:238
 #, fuzzy
@@ -650,6 +661,7 @@ msgstr "Quitter la discussion"
 msgid ""
 "Please notice that FluffyChat does only support transport encryption yet."
 msgstr ""
+"Veuillez noter que FluffyChat ne prend en charge que le chiffrement du transport pour le moment."
 
 #: ../qml/pages/SettingsPage.qml:34 ../qml/pages/SettingsPage.qml:41
 #: ../qml/pages/SettingsPage.qml:82
@@ -900,7 +912,7 @@ msgstr "Rejoindre"
 
 #: ../qml/pages/ChatPage.qml:442
 msgid "You do not have posting permissions here"
-msgstr ""
+msgstr "Vous n'avez pas le droit de publier ici"
 
 #: ../qml/pages/ChatPage.qml:473
 msgid "Type something ..."
@@ -933,7 +945,7 @@ msgstr "Adresses des discussions publiques"
 
 #: ../qml/pages/DiscoverPage.qml:43
 msgid "and matrix.org"
-msgstr ""
+msgstr "et matrix.org"
 
 #: ../qml/pages/DiscoverPage.qml:89
 #, fuzzy
@@ -1037,7 +1049,7 @@ msgstr "%1 a invité %2"
 
 #: ../qml/components/InviteListItem.qml:26
 msgid "An error occured. Maybe the username %1 is wrong?"
-msgstr ""
+msgstr "Une erreur s'est produite. Le nom d'utilisateur %1 est peut-être incorrect ?"
 
 #: ../qml/components/InviteListItem.qml:27
 #, fuzzy
@@ -1046,7 +1058,7 @@ msgstr "A été banni(e) de la discussion"
 
 #: ../qml/components/MemberListItem.qml:44 ../qml/components/ChatEvent.qml:31
 msgid "Swipe to the left or the right for actions. 😉"
-msgstr ""
+msgstr "Faites glisser vers la gauche ou vers la droite pour les actions. 😉"
 
 #: ../qml/components/MemberListItem.qml:67
 msgid "Make this user a normal member?"
@@ -1423,11 +1435,11 @@ msgstr "Alias canonique"
 
 #: ../qml/components/UserSettingsViewer.qml:109
 msgid "Status: %1"
-msgstr ""
+msgstr "Statut : %1"
 
 #: ../qml/components/UserSettingsViewer.qml:109
 msgid "and currently active"
-msgstr ""
+msgstr "et actuellement actif"
 
 #: ../qml/components/UserSettingsViewer.qml:137
 msgid "Chats with this user:"
@@ -1443,7 +1455,7 @@ msgstr "Commencer une nouvelle discussion"
 
 #: ../qml/components/Walkthrough.qml:120
 msgid "Skip"
-msgstr ""
+msgstr "Ignorer"
 
 #: ../qml/components/ChangeDisplaynameDialog.qml:11
 msgid "Change your display name"
@@ -1455,7 +1467,7 @@ msgstr "Saisissez votre surnom"
 
 #: ../qml/components/CommunityViewer.qml:107
 msgid "No description found"
-msgstr ""
+msgstr "Aucune description trouvée"
 
 #: ../qml/components/ChangeChatnameDialog.qml:20
 msgid "Enter a name for the chat"
