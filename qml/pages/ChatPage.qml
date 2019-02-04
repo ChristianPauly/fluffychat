@@ -498,7 +498,12 @@ Page {
             color: settings.darkmode ? UbuntuColors.graphite : UbuntuColors.porcelain
             visible: membership === "join" && canSendMessages && replyEvent === null
             width: height
-            onClicked: stickerInput.visible ? stickerInput.hide() : stickerInput.show()
+            onClicked: mediaImport.requestMedia()//stickerInput.visible ? stickerInput.hide() : stickerInput.show()
+        }
+
+        MediaImport {
+            id: mediaImport
+            onMediaReceived: matrix.upload ( mediaUrl )
         }
 
         ActionBar {

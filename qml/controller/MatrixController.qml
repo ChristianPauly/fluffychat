@@ -288,4 +288,46 @@ Item {
 
         return http
     }
+
+
+    function load_binary_resource( url, callback ) {
+        var oReq = new XMLHttpRequest();
+        oReq.open("GET", url, true);
+        oReq.onreadystatechange = function() {
+            if ( oReq.readyState === XMLHttpRequest.DONE ) {
+                console.log("Got file, transfering it now...")
+                var str = oReq.response;
+                var buf = new ArrayBuffer(str.length*2); // 2 bytes for each char
+                var bufView = new Uint16Array(buf);
+                for (var i=0, strLen=str.length; i<strLen; i++) {
+                    bufView[i] = str.charCodeAt(i);
+                }
+                callback ( bufView );
+            }
+        };
+        oReq.send();
+    }
+
+
+    function upload ( path, callback ) {
+        console.log("Uploading:", path)
+        load_binary_resource( path, function ( blob ) {
+            console.log("Got blob ...")
+            // Send the file to the server
+            var requestUrl = "https://%1/_matrix/media/r0/upload".arg(settings.server)
+            var http = new XMLHttpRequest();
+            http.open( "POST", requestUrl, true);
+            http.setRequestHeader('Authorization', 'Bearer ' + settings.token);
+            http.setRequestHeader('Content-Type', 'image/png');
+            http.onreadystatechange = function() {
+                if ( http.readyState === XMLHttpRequest.DONE ) {
+                    console.log ( JSON.parse(http.responseText) )
+                    console.log ( http.responseText )
+                }
+            }
+            http.send ( blob )
+            console.log("blob sent...")
+        } )
+    }
+
 }
