@@ -62,7 +62,7 @@ msgid "Copied to clipboard"
 msgstr ""
 
 #: ../qml/models/ContentHubModel.qml:95
-msgid "We are sorry. 😕 Sharing photos, videos or files is not yet supported."
+msgid "Sorry. 😕 Sharing photos, videos or files is not yet supported."
 msgstr ""
 
 #: ../qml/models/PushModel.qml:49
