@@ -9,7 +9,7 @@ Component {
 
     Dialog {
         id: dialogue
-        title: i18n.tr("Connect new phone number") + i18n.tr("...")
+        title: i18n.tr("Connect new phone number") + i18n.tr("…")
         Rectangle {
             height: units.gu(0.2)
             width: parent.width
@@ -23,7 +23,7 @@ Component {
             }
             TextField {
                 id: addressTextField
-                placeholderText: i18n.tr("Phone number...")
+                placeholderText: i18n.tr("Phone number…")
                 Keys.onReturnPressed: okButton.clicked ()
                 inputMethodHints: Qt.ImhDigitsOnly
                 width: parent.width - units.gu(8)

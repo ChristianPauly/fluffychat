@@ -254,7 +254,7 @@ function requestHistory ( event_id ) {
                 var indx = count - 1 - historyCount + eventFound
                 chatScrollView.positionViewAtIndex ( indx, ListView.Contain )
             }
-            else toast.show ( i18n.tr ( "Too much new messages" ) )
+            else toast.show ( i18n.tr ( "Too many new messages" ) )
         }
     }
 

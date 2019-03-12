@@ -10,7 +10,7 @@ Page {
     anchors.fill: parent
 
     header: PageHeader {
-        title: i18n.tr('Receive notifications for...')
+        title: i18n.tr('Receive notifications for…')
     }
 
     ScrollView {

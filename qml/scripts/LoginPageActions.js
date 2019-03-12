@@ -56,7 +56,7 @@ function login () {
             else toast.show (i18n.tr("Username '%1' not found on %2").arg(username).arg(loginDomain))
         }, function ( response ) {
             if ( response.errcode === "M_USER_IN_USE" ) mainLayout.addPageToCurrentColumn ( loginPage, Qt.resolvedUrl("../pages/PasswordInputPage.qml") )
-            else if ( response.error === "CONNERROR" ) toast.show (i18n.tr("😕 No connection..."))
+            else if ( response.error === "CONNERROR" ) toast.show (i18n.tr("😕 No connection…"))
             else toast.show ( response.error )
         }, 2)
     }
@@ -74,14 +74,14 @@ function login () {
             "address": phoneInput
         }, function ( response ) {
 
-            // Step 3.2: There is a registered matrix id. Go to the password input...
+            // Step 3.2: There is a registered Matrix ID. Go to the password input…
             if ( response.mxid ) {
                 var splittedMxid = response.mxid.substr(1).split ( ":" )
                 matrix.username = splittedMxid[0]
                 matrix.server = splittedMxid[1]
                 mainLayout.addPageToCurrentColumn ( loginPage, Qt.resolvedUrl("../pages/PasswordInputPage.qml") )
             }
-            // Step 3.3.1: There is no registered matrix id. Try to register one...
+            // Step 3.3.1: There is no registered Matrix ID. Try to register one…
             else {
                 desiredPhoneNumber = phoneInput
                 register ( username )
@@ -97,7 +97,7 @@ function register ( username ) {
         else toast.show (i18n.tr("Username is already taken"))
     }, function ( response ) {
         if ( response.errcode === "M_USER_IN_USE" ) toast.show (i18n.tr("Username is already taken"))
-        else if ( response.error === "CONNERROR" ) toast.show (i18n.tr("😕 No connection..."))
+        else if ( response.error === "CONNERROR" ) toast.show (i18n.tr("😕 No connection…"))
         else toast.show ( response.error )
     }, 2)
 }

@@ -22,7 +22,7 @@ Component {
             }
         }
         Label {
-            text: i18n.tr("Are you sure that you want to log out?")
+            text: i18n.tr("Are you sure you want to log out?")
             color: UbuntuColors.red
             width: parent.width
             wrapMode: Text.Wrap

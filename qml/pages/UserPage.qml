@@ -31,7 +31,7 @@ Page {
                 iconName: "edit-copy"
                 onTriggered: {
                     contentHub.toClipboard ( matrix_id )
-                    toast.show( i18n.tr("Username has been copied to the clipboard") )
+                    toast.show( i18n.tr("Username copied to the clipboard") )
                 }
             }
             ]
@@ -62,7 +62,7 @@ Page {
             }
 
             ListSeperator {
-                text: matrix_id !== matrix.matrixid ? i18n.tr("Chats with this user:") : i18n.tr("You are that!")
+                text: matrix_id !== matrix.matrixid ? i18n.tr("Chats with this user:") : i18n.tr("This is you.")
             }
 
             Column {

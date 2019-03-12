@@ -8,7 +8,7 @@ Component {
 
     Dialog {
         id: dialogue
-        title: i18n.tr("Loading... Please wait!")
+        title: i18n.tr("Loading… Please wait.")
         Rectangle {
             height: units.gu(0.2)
             width: parent.width

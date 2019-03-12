@@ -25,7 +25,7 @@ Page {
             leftMargin: units.gu(2)
         }
         inputMethodHints: Qt.ImhNoPredictiveText
-        placeholderText: i18n.tr("Search country name...")
+        placeholderText: i18n.tr("Search for country by name…")
     }
 
     ListView {

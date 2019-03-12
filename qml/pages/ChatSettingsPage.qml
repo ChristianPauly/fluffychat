@@ -133,7 +133,7 @@ Page {
                     Label {
                         width: parent.width
                         wrapMode: Text.Wrap
-                        text: description !== "" ? description : i18n.tr("No chat description found...")
+                        text: description !== "" ? description : i18n.tr("No chat description found…")
                         linkColor: mainLayout.brightMainColor
                         textFormat: Text.StyledText
                         onLinkActivated: contentHub.openUrlExternally ( link )
@@ -212,7 +212,7 @@ Page {
                         leftMargin: units.gu(2)
                     }
                     inputMethodHints: Qt.ImhNoPredictiveText
-                    placeholderText: i18n.tr("Search...")
+                    placeholderText: i18n.tr("Search…")
                     onActiveFocusChanged: if ( activeFocus ) scrollView.flickableItem.contentY = scrollView.flickableItem.contentHeight - scrollView.height
                 }
             }
@@ -257,16 +257,16 @@ Page {
         z: 10
         actions: ActionList {
             Action {
-                text: i18n.tr("Appoint to a member")
+                text: i18n.tr("Enroll as member")
                 onTriggered: PageActions.changePowerLevel ( 0 )
             }
             Action {
-                text: i18n.tr("Appoint to a Moderator")
+                text: i18n.tr("Appoint to moderator")
                 onTriggered: PageActions.changePowerLevel ( 50 )
                 visible: power >= 50
             }
             Action {
-                text: i18n.tr("Appoint to Admin")
+                text: i18n.tr("Appoint to admin")
                 onTriggered: PageActions.changePowerLevel ( 100 )
                 visible: power >= 100
             }

@@ -98,7 +98,7 @@ Page {
         }
         width: parent.width
         inputMethodHints: Qt.ImhNoPredictiveText
-        placeholderText: i18n.tr("Search for your chats...")
+        placeholderText: i18n.tr("Search for your chats…")
     }
 
     ListModel { id: model }

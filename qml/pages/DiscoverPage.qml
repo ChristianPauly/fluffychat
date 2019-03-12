@@ -41,7 +41,7 @@ Page {
             anchors.centerIn: parent
             onDisplayTextChanged: PageActions.displayTextChanged ( displayText )
             inputMethodHints: Qt.ImhNoPredictiveText
-            placeholderText: i18n.tr("Search for chats or #aliases...")
+            placeholderText: i18n.tr("Search for chats or #aliases…")
         }
     }
 
@@ -64,7 +64,7 @@ Page {
 
     Label {
         id: label
-        text: loading ? i18n.tr("Loading...") : i18n.tr("No chats found")
+        text: loading ? i18n.tr("Loading…") : i18n.tr("No chats found")
         textSize: Label.Large
         color: UbuntuColors.graphite
         anchors.centerIn: parent

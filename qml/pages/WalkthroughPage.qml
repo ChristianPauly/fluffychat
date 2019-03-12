@@ -75,7 +75,7 @@ Page {
                     fontSize: "large"
                     height: contentHeight
                     horizontalAlignment: Text.AlignHLeft
-                    text: i18n.tr("Chat with your friends and join the community. You can use your phone number or an unique username to find friends.")
+                    text: i18n.tr("Chat with your friends and join the community. You can use your phone number or a unique username to find friends.")
                     width: units.gu(36)
                     wrapMode: Text.WordWrap
                 }
@@ -177,7 +177,7 @@ Page {
                     fontSize: "large"
                     height: contentHeight
                     horizontalAlignment: Text.AlignHLeft
-                    text: i18n.tr("Improved stability and performance, new translations, design changes, better tablet support and a lot of bug fixes.")
+                    text: i18n.tr("Improved stability and performance, new translations, design changes, better tablet support and a lot of bugfixes.")
                     width: units.gu(36)
                     wrapMode: Text.WordWrap
                 }
@@ -228,7 +228,7 @@ Page {
                     }
                     fontSize: "large"
                     horizontalAlignment: Text.AlignHLeft
-                    text: i18n.tr("FluffyChat is open, nonprofit and cute. The development and servers are all funded by the community. You can donate for this project on <a href='https://www.patreon.com/bePatron?u=11123241'>Patreon</a> or <a href='https://liberapay.com/KrilleChritzelius/donate'>Liberapay</a>")
+                    text: i18n.tr("FluffyChat is open, nonprofit and cute. The development and servers is all community funded. You can donate to this project on <a href='https://www.patreon.com/bePatron?u=11123241'>Patreon</a> or <a href='https://liberapay.com/KrilleChritzelius/donate'>Liberapay</a>")
                     width: units.gu(36)
                     wrapMode: Text.WordWrap
                     linkColor: mainLayout.brightMainColor

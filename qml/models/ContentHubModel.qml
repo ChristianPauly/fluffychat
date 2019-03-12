@@ -65,7 +65,7 @@ Item {
             uri = uri.replace("fluffychat://","")
             bottomEdgePageStack.push ( Qt.resolvedUrl ("../pages/CommunityPage.qml" ), { activeCommunity: uri } )
         }
-        else console.error("Unkown uri...", uri)
+        else console.error("Unkown URI…", uri)
     }
 
     function openUrlExternally ( link ) {
@@ -92,7 +92,7 @@ Item {
                 contactImport.mediaReceived ( String(transfer.items[i].url) )
             }
         }
-        else toast.show (i18n.tr("We are sorry. 😕 Sharing photos, videos or files is not yet supported..."))
+        else toast.show (i18n.tr("Sorry. 😕 Sharing photos, videos or files is not yet supported…"))
     }
 
     function share(url, text, contentType) {
