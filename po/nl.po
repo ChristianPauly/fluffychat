@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fluffychat.christianpauly\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-12 09:22+0000\n"
+"POT-Creation-Date: 2019-03-13 06:47+0000\n"
 "PO-Revision-Date: 2019-03-09 10:21+0000\n"
 "Last-Translator: Mathijs Veen <mathijsv33n@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/fluffychat/"
@@ -1101,7 +1101,7 @@ msgstr "Werd verbannen uit de chat"
 msgid "Unknown"
 msgstr "Onbekend"
 
-#: ../qml/scripts/ChatPageActions.js:257
+#: ../qml/scripts/ChatPageActions.js:258
 msgid "Too much new messages"
 msgstr "Teveel nieuwe berichten"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fluffychat.christianpauly\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-12 09:22+0000\n"
+"POT-Creation-Date: 2019-03-13 06:47+0000\n"
 "PO-Revision-Date: 2019-01-22 20:04+0000\n"
 "Last-Translator: Anne Onyme 017 <anneonyme017@netcourrier.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/fluffychat/"
@@ -1182,7 +1182,7 @@ msgstr "A été banni(e) de la discussion"
 msgid "Unknown"
 msgstr "Inconnu"
 
-#: ../qml/scripts/ChatPageActions.js:257
+#: ../qml/scripts/ChatPageActions.js:258
 #, fuzzy
 #| msgid "Common messages"
 msgid "Too much new messages"

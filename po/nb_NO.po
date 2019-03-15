@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fluffychat.christianpauly\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-12 09:22+0000\n"
+"POT-Creation-Date: 2019-03-13 06:47+0000\n"
 "PO-Revision-Date: 2019-03-12 09:24+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/"
@@ -1191,7 +1191,7 @@ msgstr "Ble bannlyst fra sludringen"
 msgid "Unknown"
 msgstr "Ukjent"
 
-#: ../qml/scripts/ChatPageActions.js:257
+#: ../qml/scripts/ChatPageActions.js:258
 msgid "Too much new messages"
 msgstr "For mange nye meldinger"
 

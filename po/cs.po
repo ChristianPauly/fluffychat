@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fluffychat.christianpauly\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-12 09:22+0000\n"
-"PO-Revision-Date: 2019-03-12 09:24+0000\n"
+"POT-Creation-Date: 2019-03-13 06:47+0000\n"
+"PO-Revision-Date: 2019-03-13 06:51+0000\n"
 "Last-Translator: Milan Korecky <milan.korecky@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/fluffychat/"
 "translations/cs/>\n"
@@ -173,7 +173,7 @@ msgstr "Pokračovat"
 
 #: ../qml/pages/LoginPage.qml:20
 msgid "Homeserver %1"
-msgstr "Homeserver %1"
+msgstr "Server %1"
 
 #: ../qml/pages/LoginPage.qml:28
 msgid "Change homeserver"
@@ -1101,7 +1101,7 @@ msgstr "Byl z chatu vyloučen"
 msgid "Unknown"
 msgstr "Neznámý"
 
-#: ../qml/scripts/ChatPageActions.js:257
+#: ../qml/scripts/ChatPageActions.js:258
 msgid "Too much new messages"
 msgstr "Příliš mnoho nových zpráv"
 
@@ -1402,10 +1402,8 @@ msgid "Do you want to create a new group now?"
 msgstr "Chcete nyní vytvořit novou skupinu?"
 
 #: ../qml/scripts/LoginPageActions.js:54
-#, fuzzy
-#| msgid "Username '%1' not found on %2"
 msgid "Server %1 not found"
-msgstr "Jméno uživatele '%1' nenalezeno v %2"
+msgstr "Server %1 nenalezen"
 
 #: ../qml/scripts/LoginPageActions.js:56
 msgid "Username '%1' not found on %2"

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fluffychat.christianpauly\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-12 09:22+0000\n"
-"PO-Revision-Date: 2019-03-12 09:24+0000\n"
+"POT-Creation-Date: 2019-03-13 06:47+0000\n"
+"PO-Revision-Date: 2019-03-13 06:51+0000\n"
 "Last-Translator: advocatux <advocatux@airpost.net>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/fluffychat/"
 "translations/es/>\n"
@@ -1103,7 +1103,7 @@ msgstr "Ha sido vetado en el chat"
 msgid "Unknown"
 msgstr "Desconocido"
 
-#: ../qml/scripts/ChatPageActions.js:257
+#: ../qml/scripts/ChatPageActions.js:258
 msgid "Too much new messages"
 msgstr "Demasiados mensajes nuevos"
 
@@ -1405,10 +1405,8 @@ msgid "Do you want to create a new group now?"
 msgstr "¿Quiere crear un nuevo grupo ahora?"
 
 #: ../qml/scripts/LoginPageActions.js:54
-#, fuzzy
-#| msgid "Username '%1' not found on %2"
 msgid "Server %1 not found"
-msgstr "No se encontró el nombre de usuario «%1» en %2"
+msgstr "No se encontró el servidor %1"
 
 #: ../qml/scripts/LoginPageActions.js:56
 msgid "Username '%1' not found on %2"

@@ -204,58 +204,62 @@ Item {
         query('DROP TABLE IF EXISTS Media')
     }
 
-    property var syncTX
+    property var queryQueue: []
+
+    function addQuery ( query, param ) {
+        var parameters = []
+        if ( param ) parameters = param
+        queryQueue[queryQueue.length] = { "query": query, "param": parameters}
+    }
 
 
     // Save all incomming events in the database
     Connections {
         target: matrix
 
-        onNewSync: {
-            if ( matrix.prevBatch !== "" ) {
-                syncTX = { executeSql: storage.query }
-                return
-            }
-            try {
-                db.transaction(
-                    function(tx) {
-                        syncTX = tx
-                        matrix.handleSync ( sync, newChatUpdate, newEvent )
-                    }
-                )
-                if ( matrix.prevBatch === "" ) storage.syncInitialized ()
-            }
-            catch (e) {
-                console.error("❌[Error]",e,query)
-                if ( e.code && e.code === 2 ) {
-                    lockedScreen.visible = true
-                }
-            }
-        }
+        onNewSync: save ()
 
         onNewEvent: newEvent ( type, chat_id, eventType, eventContent )
         onNewChatUpdate: newChatUpdate ( chat_id, membership, notification_count, highlight_count, limitedTimeline, prevBatch )
+    }
 
-
+    function save () {
+        try {
+            db.transaction(
+                function(tx) {
+                    while ( queryQueue.length > 0 ) {
+                        tx.executeSql ( queryQueue[0].query, queryQueue[0].param )
+                        queryQueue.splice( 0, 1 )
+                    }
+                }
+            )
+            if ( matrix.prevBatch === "" ) storage.syncInitialized ()
+        }
+        catch (e) {
+            console.error("❌[Error]",e,query)
+            if ( e.code && e.code === 2 ) {
+                lockedScreen.visible = true
+            }
+        }
     }
 
     function newChatUpdate ( chat_id, membership, notification_count, highlight_count, limitedTimeline, prevBatch ) {
         // Insert the chat into the database if not exists
-        syncTX.executeSql ("INSERT OR IGNORE INTO Chats " +
+        addQuery ("INSERT OR IGNORE INTO Chats " +
         "VALUES(?, ?, '', 0, 0, 0, '', '', '', 0, '', '', '', '', '', '', 0, 50, 50, 0, 50, 50, 0, 50, 100, 50, 50, 50, 100) ", [
         chat_id, membership
         ] )
 
         // Update the notification counts and the limited timeline boolean
-        syncTX.executeSql ( "UPDATE Chats SET highlight_count=?, notification_count=?, membership=?, limitedTimeline=? WHERE id=? ", [
+        addQuery ( "UPDATE Chats SET highlight_count=?, notification_count=?, membership=?, limitedTimeline=? WHERE id=? ", [
         highlight_count, notification_count, membership, limitedTimeline, chat_id
         ] )
 
         // Is the timeline limited? Then all previous messages should be
         // removed from the database!
         if ( limitedTimeline ) {
-            syncTX.executeSql ("DELETE FROM Events WHERE chat_id='" + chat_id + "'")
-            syncTX.executeSql ("UPDATE Chats SET prev_batch='" + prevBatch + "' WHERE id='" + chat_id + "'")
+            addQuery ("DELETE FROM Events WHERE chat_id='" + chat_id + "'")
+            addQuery ("UPDATE Chats SET prev_batch='" + prevBatch + "' WHERE id='" + chat_id + "'")
         }
     }
 
@@ -285,7 +289,7 @@ Item {
                 state_key = eventContent.state_key
             }
 
-            syncTX.executeSql ( "INSERT OR REPLACE INTO Events VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            addQuery ( "INSERT OR REPLACE INTO Events VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)",
             [ eventContent.event_id,
             chat_id,
             eventContent.origin_server_ts,
@@ -313,91 +317,91 @@ Item {
                     query += ", last_active_ago = %1 ".arg( (new Date().getTime() - eventContent.content.last_active_ago).toString() )
                 }
                 query += "WHERE matrix_id = '%1'".arg(eventContent.sender)
-                syncTX.executeSql( query )
+                addQuery( query )
             }
             break
 
         case "m.receipt":
             if ( eventContent.user === matrix.matrixid ) {
-                syncTX.executeSql( "UPDATE Chats SET unread=? WHERE id=?",
+                addQuery( "UPDATE Chats SET unread=? WHERE id=?",
                 [ eventContent.ts || new Date().getTime(),
                 chat_id ])
             }
             else {
                 // Mark all previous received messages as seen
-                syncTX.executeSql ( "UPDATE Events SET status=3 WHERE origin_server_ts<=" + eventContent.ts +
+                addQuery ( "UPDATE Events SET status=3 WHERE origin_server_ts<=" + eventContent.ts +
                 " AND chat_id='" + chat_id + "' AND status=2")
             }
             break
             // This event means, that the name of a room has been changed, so
             // it has to be changed in the database.
         case "m.room.name":
-            syncTX.executeSql( "UPDATE Chats SET topic=? WHERE id=?",
+            addQuery( "UPDATE Chats SET topic=? WHERE id=?",
             [ eventContent.content.name,
             chat_id ])
             break
             // This event means, that the topic of a room has been changed, so
             // it has to be changed in the database
         case "m.room.topic":
-            syncTX.executeSql( "UPDATE Chats SET description=? WHERE id=?",
+            addQuery( "UPDATE Chats SET description=? WHERE id=?",
             [ MessageFormats.formatText(eventContent.content.topic) || "",
             chat_id ])
             break
             // This event means, that the canonical alias of a room has been changed, so
             // it has to be changed in the database
         case "m.room.canonical_alias":
-            syncTX.executeSql( "UPDATE Chats SET canonical_alias=? WHERE id=?",
+            addQuery( "UPDATE Chats SET canonical_alias=? WHERE id=?",
             [ eventContent.content.alias || "",
             chat_id ])
             break
             // This event means, that the topic of a room has been changed, so
             // it has to be changed in the database
         case "m.room.history_visibility":
-            syncTX.executeSql( "UPDATE Chats SET history_visibility=? WHERE id=?",
+            addQuery( "UPDATE Chats SET history_visibility=? WHERE id=?",
             [ eventContent.content.history_visibility,
             chat_id ])
             break
             // This event means, that the topic of a room has been changed, so
             // it has to be changed in the database
         case "m.room.redaction":
-            syncTX.executeSql( "DELETE FROM Events WHERE id=?",
+            addQuery( "DELETE FROM Events WHERE id=?",
             [ eventContent.redacts ])
             break
             // This event means, that the topic of a room has been changed, so
             // it has to be changed in the database
         case "m.room.guest_access":
-            syncTX.executeSql( "UPDATE Chats SET guest_access=? WHERE id=?",
+            addQuery( "UPDATE Chats SET guest_access=? WHERE id=?",
             [ eventContent.content.guest_access,
             chat_id ])
             break
             // This event means, that the topic of a room has been changed, so
             // it has to be changed in the database
         case "m.room.join_rules":
-            syncTX.executeSql( "UPDATE Chats SET join_rules=? WHERE id=?",
+            addQuery( "UPDATE Chats SET join_rules=? WHERE id=?",
             [ eventContent.content.join_rule,
             chat_id ])
             break
             // This event means, that the avatar of a room has been changed, so
             // it has to be changed in the database
         case "m.room.avatar":
-            syncTX.executeSql( "UPDATE Chats SET avatar_url=? WHERE id=?",
+            addQuery( "UPDATE Chats SET avatar_url=? WHERE id=?",
             [ eventContent.content.url,
             chat_id ])
             break
             // This event means, that the aliases of a room has been changed, so
             // it has to be changed in the database
         case "m.room.aliases":
-            syncTX.executeSql( "DELETE FROM Addresses WHERE chat_id='" + chat_id + "'")
+            addQuery( "DELETE FROM Addresses WHERE chat_id='" + chat_id + "'")
             for ( var alias = 0; alias < eventContent.content.aliases.length; alias++ ) {
                 if ( typeof eventContent.content.aliases[alias] !== "string" ) break
-                syncTX.executeSql( "INSERT INTO Addresses VALUES(?,?)",
+                addQuery( "INSERT INTO Addresses VALUES(?,?)",
                 [ chat_id, eventContent.content.aliases[alias] ] )
             }
             break
             // This event means, that the aliases of a room has been changed, so
             // it has to be changed in the database
         case "m.fully_read":
-            syncTX.executeSql( "UPDATE Chats SET fully_read=? WHERE id=?",
+            addQuery( "UPDATE Chats SET fully_read=? WHERE id=?",
             [ eventContent.content.event_id,
             chat_id ])
             break
@@ -416,49 +420,45 @@ Item {
             }
 
             // Update user database
-            var newUser = syncTX.executeSql( "INSERT OR IGNORE INTO Users VALUES(?,?,?, '', '', 0)", [
+            var newUser = addQuery( "INSERT OR IGNORE INTO Users VALUES(?,?,?, '', '', 0)", [
             state_key, insertDisplayname, insertAvatarUrl
             ] )
-            if ( newUser.rowsAffected === 0 ) {
-                var queryStr = "UPDATE Users SET matrix_id=?"
-                var queryArgs = [ state_key ]
+            var queryStr = "UPDATE Users SET matrix_id=?"
+            var queryArgs = [ state_key ]
 
-                if ( typeof eventContent.content.displayname === "string" ) {
-                    queryStr += " , displayname=?"
-                    queryArgs[queryArgs.length] = eventContent.content.displayname
-                }
-                if ( typeof eventContent.content.avatar_url === "string" ) {
-                    queryStr += " , avatar_url=?"
-                    queryArgs[queryArgs.length] = eventContent.content.avatar_url
-                }
-
-                queryStr += " WHERE matrix_id=?"
-                queryArgs[queryArgs.length] = state_key
-                syncTX.executeSql( queryStr, queryArgs)
+            if ( typeof eventContent.content.displayname === "string" ) {
+                queryStr += " , displayname=?"
+                queryArgs[queryArgs.length] = eventContent.content.displayname
             }
+            if ( typeof eventContent.content.avatar_url === "string" ) {
+                queryStr += " , avatar_url=?"
+                queryArgs[queryArgs.length] = eventContent.content.avatar_url
+            }
+
+            queryStr += " WHERE matrix_id=?"
+            queryArgs[queryArgs.length] = state_key
+            addQuery( queryStr, queryArgs)
 
             // Update membership table
-            var newMembership = syncTX.executeSql( "INSERT OR IGNORE INTO Memberships VALUES(?,?,?,?,?,0)", [
+            var newMembership = addQuery( "INSERT OR IGNORE INTO Memberships VALUES(?,?,?,?,?,0)", [
             chat_id, state_key, insertDisplayname, insertAvatarUrl, membership
             ] )
-            if ( newMembership.rowsAffected === 0 ) {
-                var queryStr = "UPDATE Memberships SET membership=?"
-                var queryArgs = [ membership ]
+            var queryStr = "UPDATE Memberships SET membership=?"
+            var queryArgs = [ membership ]
 
-                if ( typeof eventContent.content.displayname === "string" ) {
-                    queryStr += " , displayname=?"
-                    queryArgs[queryArgs.length] = eventContent.content.displayname
-                }
-                if ( typeof eventContent.content.avatar_url === "string" ) {
-                    queryStr += " , avatar_url=?"
-                    queryArgs[queryArgs.length] = eventContent.content.avatar_url
-                }
-
-                queryStr += " WHERE matrix_id=? AND chat_id=?"
-                queryArgs[queryArgs.length] = state_key
-                queryArgs[queryArgs.length] = chat_id
-                syncTX.executeSql( queryStr, queryArgs)
+            if ( typeof eventContent.content.displayname === "string" ) {
+                queryStr += " , displayname=?"
+                queryArgs[queryArgs.length] = eventContent.content.displayname
             }
+            if ( typeof eventContent.content.avatar_url === "string" ) {
+                queryStr += " , avatar_url=?"
+                queryArgs[queryArgs.length] = eventContent.content.avatar_url
+            }
+
+            queryStr += " WHERE matrix_id=? AND chat_id=?"
+            queryArgs[queryArgs.length] = state_key
+            queryArgs[queryArgs.length] = chat_id
+            addQuery( queryStr, queryArgs)
             break
             // This event changes the permissions of the users and the power levels
         case "m.room.power_levels":
@@ -480,7 +480,7 @@ Item {
             }
             if ( query !== "UPDATE Chats SET ") {
                 query = query.replace(",","")
-                syncTX.executeSql( query + " WHERE id=?",[ chat_id ])
+                addQuery( query + " WHERE id=?",[ chat_id ])
             }
 
             // Set the users power levels:
@@ -488,17 +488,15 @@ Item {
                 for ( var user in eventContent.content.users ) {
                     var power_level = eventContent.content.users[user]
                     if ( typeof power_level !== "number" || typeof user !== "string" ) break
-                    var updateResult = syncTX.executeSql( "UPDATE Memberships SET power_level=? WHERE matrix_id=? AND chat_id=?",
+                    var updateResult = addQuery( "UPDATE Memberships SET power_level=? WHERE matrix_id=? AND chat_id=?",
                     [ power_level,
                     user,
                     chat_id ])
-                    if ( updateResult.rowsAffected === 0 ) {
-                        syncTX.executeSql( "INSERT OR IGNORE INTO Memberships VALUES(?, ?, '', '', ?, ?)",
-                        [ chat_id,
-                        user,
-                        "unknown",
-                        power_level ])
-                    }
+                    addQuery( "INSERT OR IGNORE INTO Memberships VALUES(?, ?, '', '', ?, ?)",
+                    [ chat_id,
+                    user,
+                    "unknown",
+                    power_level ])
                 }
             }
             break
