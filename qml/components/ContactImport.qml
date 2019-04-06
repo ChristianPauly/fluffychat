@@ -38,6 +38,7 @@ Item {
                 // Extract all phone numbers and email addresses
                 var lines = response.split("\n")
                 var threepids = []
+                console.log("contactlines:",JSON.stringify(lines))
                 for ( var i = 0; i < lines.length; i++ ) {
                     if ( lines[i].indexOf ("TEL;") !== -1 ) {
                         var phoneNumber = lines[i].split(":")[1].replace(/\D/g,'')
@@ -78,10 +79,40 @@ Item {
     }
 
     function requestContact() {
-        if (!contactImportRoot.importDialog) {
+        var peer = null
+        for (var i = 0; i < model.peers.length; ++i) {
+            var p = model.peers[i]
+            var s = p.appId
+            if (s.indexOf("address-book-app") != -1) {
+                peer = p
+            }
+        }
+        if (peer != null) {
+            peer.contentType = ContentHub.ContentType.Contacts
+            peer.selectionType = ContentHub.ContentTransfer.Multiple
+            contactImportRoot.activeTransfer = peer.request()
+        }
+        else if (model.peers.length > 0 && !contactImportRoot.importDialog) {
             contactImportRoot.importDialog = PopupUtils.open(contentHubDialog, root)
-        } else {
-            console.warn("Import dialog already running")
+            /* didn't find ubuntu's adressbook, maybe they have another app */
+        }
+    }
+
+    ContentHub.ContentPeerModel {
+        id: model
+        contentType: ContentHub.ContentType.Contacts
+        handler: ContentHub.ContentHandler.Source
+    }
+
+    property alias activeTransfer: signalConnections.target
+
+    Connections {
+        id: signalConnections
+
+        onStateChanged: {
+            if (contactImportRoot.activeTransfer.state === ContentHub.ContentTransfer.Charged && contactImportRoot.activeTransfer.items.length > 0) {
+                contactImportRoot.mediaReceived(contactImportRoot.activeTransfer.items[0].url)
+            }
         }
     }
 
